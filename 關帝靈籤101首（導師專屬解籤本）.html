@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關帝靈籤101首（導師專屬解籤本）</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#fdf0a6',
+                            dark: '#aa771c',
+                        },
+                        templeRed: {
+                            DEFAULT: '#991b1b',
+                            bright: '#dc2626',
+                            dark: '#581c87',
+                        },
+                        templeDark: '#0b0f19',
+                        templeCard: '#131c2e',
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'Cambria', 'Noto Serif TC', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #aa771c;
+            border-radius: 3px;
+        }
+        .poe-container {
+            perspective: 1000px;
+        }
+        .poe-block {
+            width: 65px;
+            height: 38px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border: 2px solid #d4af37;
+            border-radius: 50px 50px 10px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.3);
+            display: inline-block;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .poe-block.flat {
+            border-radius: 10px 10px 50px 50px;
+            background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+        }
+        .poe-block.tossing {
+            animation: tossAnim 0.8s ease-in-out infinite alternate;
+        }
+        @keyframes tossAnim {
+            0% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+            50% { transform: translateY(-40px) rotateX(360deg) rotateY(180deg); }
+            100% { transform: translateY(0) rotateX(720deg) rotateY(360deg); }
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+        .poem-text {
+            letter-spacing: 0.1em;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center p-3 sm:p-6 min-h-screen">
+
+    <!-- Language Selector Bar -->
+    <div class="w-full max-w-2xl flex justify-between items-center mb-4 px-2">
+        <div class="flex items-center space-x-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
+            <span class="text-xs text-gold tracking-widest font-semibold uppercase" id="ui-app-tag">Guandi Mentor Oracle Master</span>
+        </div>
+        <div class="flex space-x-1 bg-slate-900 p-1 rounded-full border border-gold/30">
+            <button id="btn-zh" onclick="setLanguage('zh')" class="px-3 py-1 text-xs rounded-full font-bold transition-all duration-300 bg-gold text-slate-950 shadow-md">繁體中文</button>
+            <button id="btn-jp" onclick="setLanguage('jp')" class="px-3 py-1 text-xs rounded-full font-bold transition-all duration-300 text-slate-300 hover:text-gold">日本語</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="w-full max-w-2xl flex flex-col gap-5">
+        
+        <!-- Header Banner -->
+        <header class="text-center bg-templeCard border border-gold/40 rounded-2xl p-5 gold-border-glow relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-templeRed/20 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <div class="relative z-10 flex flex-col items-center">
+                <!-- Mentor Image Frame -->
+                <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-gold p-1 mb-3 shadow-lg bg-black/50 overflow-hidden relative group">
+                    <img id="mentor-header-img" src="https://images.unsplash.com/photo-1590073844006-33379778ae09?q=80&w=400&auto=format&fit=crop" 
+                         alt="導師 關聖帝君聖像" 
+                         class="w-full h-full object-cover rounded-full transform transition duration-500 group-hover:scale-110"
+                         onerror="this.src='https://placehold.co/200x200/1a263d/d4af37?text=帝君聖像'">
+                </div>
+                <h1 id="ui-title" class="text-2xl sm:text-3xl font-extrabold text-gold tracking-wider font-serif drop-shadow-md">關帝靈籤百首</h1>
+                <p id="ui-sub" class="text-xs sm:text-sm text-slate-300 mt-1 tracking-wide font-light">導師關聖帝君指引 ‧ 擲筊求籤（ポェ占い・かみばえ） ‧ 中日雙語解籤寶典</p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="flex p-1 bg-slate-900/85 backdrop-blur-md rounded-xl border border-gold/20">
+            <button id="tab-draw" onclick="switchTab('draw')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all duration-300 text-slate-950 bg-gold shadow-md flex items-center justify-center space-x-1">
+                <span>🎲</span> <span id="ui-tab1">誠心求籤</span>
+            </button>
+            <button id="tab-list" onclick="switchTab('list')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all duration-300 text-slate-400 hover:text-gold flex items-center justify-center space-x-1">
+                <span>📖</span> <span id="ui-tab2">籤詩索引</span>
+            </button>
+            <button id="tab-mentor" onclick="switchTab('mentor')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all duration-300 text-slate-400 hover:text-gold flex items-center justify-center space-x-1">
+                <span>🙏</span> <span id="ui-tab3">關於導師</span>
+            </button>
+        </div>
+
+        <!-- TAB 1: DRAW ORACLE (誠心求籤) -->
+        <main id="page-draw" class="bg-templeCard border border-gold/30 rounded-2xl p-5 sm:p-7 shadow-xl">
+            <div id="draw-step-1" class="space-y-4 text-center">
+                <p id="ui-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    向導師關聖帝君默禱心事與所求（事業、健康、感情或人生方向），隨後點擊下方按鈕求取靈籤。
+                </p>
+                <div class="relative">
+                    <textarea id="user-intention" rows="2" 
+                              class="w-full bg-slate-950/80 border border-gold/40 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-gold transition"
+                              placeholder="請寫下或心中默想您的所求事項...（可留空）"></textarea>
+                </div>
+                <button onclick="startDraw()" 
+                        class="w-full py-3.5 px-6 rounded-xl font-bold text-base bg-gradient-to-r from-gold to-gold-dark text-slate-950 shadow-lg hover:brightness-110 active:scale-[0.99] transition transform">
+                    <span id="ui-btn-draw">🙏 誠心抽籤</span>
+                </button>
+            </div>
+
+            <!-- Result Display Container -->
+            <div id="draw-result-container" class="hidden space-y-5">
+                <div class="text-center pb-3 border-b border-gold/20">
+                    <div class="flex justify-center items-center space-x-2">
+                        <span id="lot-level-badge" class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-gold/20 text-gold border border-gold/40">--</span>
+                    </div>
+                    <h2 id="lot-name" class="text-2xl font-bold text-gold font-serif mt-2">--</h2>
+                </div>
+
+                <!-- Poem Display Card -->
+                <div class="bg-slate-950/70 p-4 sm:p-6 rounded-xl border border-gold/20 text-center flex flex-col items-center justify-center">
+                    <div id="lot-poem" class="poem-text text-base sm:text-lg font-serif text-gold-light leading-loose my-2"></div>
+                </div>
+
+                <!-- Poe Tossing Section (擲筊確認) -->
+                <div id="poe-section" class="bg-slate-900/60 p-4 rounded-xl border border-white/5 text-center space-y-4">
+                    <p id="ui-poe-intro" class="text-xs sm:text-sm text-slate-300">
+                        請向導師關聖帝君擲筊（ポェ占い / かみばえ），確認此籤是否為聖意指示？
+                    </p>
+
+                    <div class="flex justify-center items-center space-x-6 py-3 poe-container min-h-[60px]">
+                        <div id="poe1" class="poe-block"></div>
+                        <div id="poe2" class="poe-block flat"></div>
+                    </div>
+
+                    <div id="poe-status" class="text-sm font-bold min-h-[24px]"></div>
+
+                    <button id="btn-toss" onclick="tossPoe()" 
+                            class="w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-templeRed-bright to-templeRed text-white shadow-md hover:brightness-110 active:scale-[0.99] transition">
+                        <span id="ui-btn-toss">✨ 開始擲筊 (ポェ占い)</span>
+                    </button>
+                    
+                    <button id="btn-redraw" onclick="resetDraw()" class="hidden w-full py-2.5 rounded-xl font-bold text-xs bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition">
+                        <span id="ui-btn-redraw">🔄 重新向導師求籤</span>
+                    </button>
+                </div>
+
+                <!-- Detailed Explanation (Shown upon 聖筊) -->
+                <div id="interpretation-box" class="hidden space-y-4 pt-2">
+                    <div class="p-4 bg-slate-900/90 rounded-xl border border-gold/30 space-y-3">
+                        <div class="flex items-center space-x-2 border-b border-gold/20 pb-2">
+                            <span class="w-2 h-2 rounded-full bg-gold"></span>
+                            <h3 id="ui-zh-title" class="text-sm font-bold text-gold uppercase tracking-wider">中文解析 (聖意 / 解曰)</h3>
+                        </div>
+                        <p id="lot-zh-text" class="text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-line"></p>
+                    </div>
+
+                    <div class="p-4 bg-slate-900/90 rounded-xl border border-gold/30 space-y-3">
+                        <div class="flex items-center space-x-2 border-b border-gold/20 pb-2">
+                            <span class="w-2 h-2 rounded-full bg-gold"></span>
+                            <h3 id="ui-jp-title" class="text-sm font-bold text-gold uppercase tracking-wider">日本語解釈 (神意 / 解釈)</h3>
+                        </div>
+                        <p id="lot-jp-text" class="text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-line"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- TAB 2: INDEX & SEARCH (籤詩索引) -->
+        <main id="page-list" class="hidden bg-templeCard border border-gold/30 rounded-2xl p-5 shadow-xl space-y-4">
+            <div class="relative">
+                <input type="text" id="searchInput" oninput="filterLots()" 
+                       class="w-full bg-slate-950 border border-gold/40 rounded-xl px-4 py-3 pl-10 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-gold transition" 
+                       placeholder="搜尋籤號（如 0, 1, 76, 100）或詩文關鍵字...">
+                <svg class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+            <div id="lotList" class="space-y-2.5 max-h-[520px] overflow-y-auto pr-1"></div>
+        </main>
+
+        <!-- TAB 3: ABOUT MENTOR (關於導師) -->
+        <main id="page-mentor" class="hidden bg-templeCard border border-gold/30 rounded-2xl p-6 shadow-xl space-y-6">
+            <div class="border-b border-gold/20 pb-3 flex items-center justify-between">
+                <h2 id="m-header" class="text-xl font-bold text-gold font-serif">關於導師（關聖帝君）</h2>
+                <span class="text-xs px-2.5 py-1 bg-gold/10 text-gold rounded-full border border-gold/30">武聖 ‧ 人生導師</span>
+            </div>
+
+            <div class="space-y-5 text-sm leading-relaxed text-slate-300">
+                <div class="space-y-2 bg-slate-950/60 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-gold font-bold text-base flex items-center space-x-2">
+                        <span>【導師簡介 ‧ 繁體中文】</span>
+                    </h3>
+                    <p>
+                        <strong class="text-gold-light">關聖帝君</strong>（關羽，字雲長），民間尊稱為「恩主公」、「武財神」與「伏魔大帝」。在人生旅程與修行道路中，關聖帝君是破除迷惘、指引方向的最高<strong class="text-gold-light">「導師」</strong>。
+                    </p>
+                    <p>
+                        導師以「忠、義、仁、勇、禮、智、信」的精神為世人典範。求籤與擲筊過程不僅是探求吉凶，更是聆聽導師教誨、修養心性與開拓智慧的契機。
+                    </p>
+                </div>
+
+                <div class="space-y-3 bg-slate-950/60 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-gold font-bold text-base flex items-center space-x-2">
+                        <span>【導師とポェ占い ‧ 日本語】</span>
+                    </h3>
+                    <p class="leading-relaxed">
+                        <strong class="text-gold-light">関聖帝君（かんせいていくん）</strong>は、三国志の英雄・関羽将軍が神格化された神様であり、台湾や中華圏では「恩主公（おんしゅこう / 人々の救世主）」や「武財神」として深く崇敬されています。
+                    </p>
+                    <p class="leading-relaxed">
+                        当アプリにおいて、関聖帝君は人生の迷いや悩みを払い、正しい道へと導いてくださる<strong class="text-gold-light">「人生と修養の導師（メンター）」</strong>として位置づけられています。
+                    </p>
+                    
+                    <div class="mt-3 p-3 bg-slate-900/90 rounded-lg border-l-4 border-gold text-xs space-y-1.5">
+                        <div class="font-bold text-gold text-sm">💡 神占「擲筊（ポェ占い / かみばえ）」について</div>
+                        <p>
+                            台湾の伝統的な参拝儀式である「擲筊（てきこう）」は、日本語で<strong class="text-gold-light">「ポェ占い」「かみばえ」「聖杯を捧げる神占」</strong>などと呼ばれます。二つの木製の月牙型の杯（筊杯）を投げ、神意を問う儀式です。
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 text-slate-300 pt-1">
+                            <li><strong class="text-emerald-400">聖筊（せいはい / 聖杯）：</strong> 一つが表（凸）、もう一つが平（平）が出た状態。神様が籤を承認されたサイン。</li>
+                            <li><strong class="text-rose-400">笑杯 / 陰杯：</strong> 両方平、または両方凸が出た状態。神意がまだ定まっておらず、心を静めて引き直す必要があります。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal Detail Dialog -->
+        <div id="detail-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+            <div class="bg-templeCard border border-gold/40 w-full max-w-lg rounded-2xl p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto space-y-4">
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+                <div class="text-center pb-2 border-b border-gold/20">
+                    <span id="modal-level-badge" class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-gold/20 text-gold border border-gold/40 inline-block mb-1">--</span>
+                    <h2 id="modal-title" class="text-xl font-bold text-gold font-serif">--</h2>
+                </div>
+                <div id="modal-poem" class="poem-text text-base font-serif text-gold-light text-center bg-slate-950/70 p-4 rounded-xl border border-gold/20"></div>
+                <div class="space-y-3 text-xs sm:text-sm">
+                    <div class="p-3 bg-slate-900 rounded-lg border border-gold/20">
+                        <div class="font-bold text-gold mb-1">【中文解析 (聖意 / 解曰)】</div>
+                        <p id="modal-zh" class="text-slate-200 whitespace-pre-line leading-relaxed"></p>
+                    </div>
+                    <div class="p-3 bg-slate-900 rounded-lg border border-gold/20">
+                        <div class="font-bold text-gold mb-1">【日本語解釈 (神意 / 解釈)】</div>
+                        <p id="modal-jp" class="text-slate-200 whitespace-pre-line leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-slate-500 py-3">
+            <p>© 關帝靈籤百首（導師專屬解籤本） ‧ 導師關聖帝君慈悲指引</p>
+        </footer>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        let currentLang = 'zh';
+
+        const uiText = {
+            zh: {
+                appTag: "Guandi Mentor Oracle Master",
+                title: "關帝靈籤百首",
+                sub: "導師關聖帝君指引 ‧ 擲筊求籤（ポェ占い・かみばえ） ‧ 中日雙語解籤寶典",
+                tab1: "誠心求籤",
+                tab2: "籤詩索引",
+                tab3: "關於導師",
+                desc: "向導師關聖帝君默禱心事與所求（事業、健康、感情或人生方向），隨後點擊下方按鈕求取靈籤。",
+                btnDraw: "🙏 誠心抽籤",
+                drawnLabel: "抽得籤號",
+                poeIntro: "請向導師關聖帝君擲筊（ポェ占い / かみばえ），確認此籤是否為聖意指示？",
+                btnToss: "✨ 開始擲筊 (ポェ占い)",
+                btnRedraw: "🔄 重新向導師求籤",
+                zhTitle: "中文解析 (聖意 / 解曰)",
+                jpTitle: "日本語解釈 (神意 / 解釈)",
+                mHeader: "關於導師（關聖帝君）",
+                searchPlaceholder: "搜尋籤號（如 0, 1, 76, 100）或詩文關鍵字...",
+                viewDetail: "點擊查看詳情",
+                poeSuccess: "【聖筊 (聖杯)】神明指示：正是此籤！請參閱下方解籤。",
+                poeFail: "【笑筊 / 陰杯】神明示指未定，請靜心後重新抽籤。",
+                tossingMsg: "擲筊・神占中..."
+            },
+            jp: {
+                appTag: "関帝霊籤 101 首",
+                title: "関帝霊籤百首",
+                sub: "導師・関聖帝君の導き ‧ 擲筊（ポェ占い・かみばえ） ‧ 日中対訳解釈宝典",
+                tab1: "誠心求籤",
+                tab2: "籤詩索引",
+                tab3: "導師について",
+                desc: "導師・関聖帝君に心の中で願い事（仕事、健康、恋愛、人生の転機）を告げ、下のボタンを押して籤をお引きください。",
+                btnDraw: "🙏 籤を引く",
+                drawnLabel: "引き当てた籤",
+                poeIntro: "関聖帝君に神意（ポェ占い / かみばえ）を伺い、この籤でよいか確認してください。",
+                btnToss: "✨ 神意を伺う (ポェ占い)",
+                btnRedraw: "🔄 もう一度籤を引く",
+                zhTitle: "中国語解析 (聖意 / 解曰)",
+                jpTitle: "日本語解釈 (神意 / 解釈)",
+                mHeader: "導師（関聖帝君）について",
+                searchPlaceholder: "籤番号（例: 0, 1, 76, 100）やキーワードで検索...",
+                viewDetail: "詳細を見る",
+                poeSuccess: "【杯（成功）】神様のお告げです！下の解釈をご覧ください。",
+                poeFail: "【笑杯 / 陰杯】神意がまだ定まりません。心を静めて引き直してください。",
+                tossingMsg: "神占中（ポェを投げています）..."
+            }
+        };
+
+        // Complete 101 Verified Lots Database with user-verified exact classical poetry and verified grades
+        const lotsData = [
+            [
+                0, "頭籤 (籤王)", "頭籤 (籤王)", "大吉",
+                "求得頭籤百事良，萬事如意大吉昌；\n宜加力作行方便，可保福壽永安康。",
+                "【聖意】得此頭籤者，百事順利、大吉大利。只要多行善事、累積福報，便能福壽雙全、永保平安。\n【解曰】凡事謀望，無不遂意。積德行善，大吉昌盛。",
+                "【神意】この「頭籤」を引き当てた者は、あらゆる物事が極めて順調に進み、万事が思い通りになり大吉となります。\n【解釈】さらに努力を重ね、周囲に善い行い（慈悲や方便）を施し続ければ、福徳と長寿を永遠に保つことができるでしょう。"
+            ],
+            [
+                1, "第一籤", "第一籤", "大吉",
+                "巍巍獨步向雲間，玉殿千官第一班；\n富貴榮華天付汝，福如東海壽如山。",
+                "【聖意】上上大吉。所企盼期望的事，皆能稱心順利完成，官運與事業能高升。\n【解曰】謀望皆成，高人指引，富貴雙全，大吉昌盛。",
+                "【神意】大吉です。願い事は望み通りに順調に叶い、出世運や事業運も大きく上昇していきます。\n【解釈】栄華と長寿に恵まれる最高峰の運気です。"
+            ],
+            [
+                2, "第二籤", "第二籤", "上吉",
+                "盈虛消息總天時，自此君當百事宜；\n若問前程歸縮地，須憑方寸好修為。",
+                "【聖意】凡事不宜躁進，宜待時而動。平時要積德修身，心存善念，必得上天保佑。\n【解曰】時機未至宜守舊，修心積德，待時而動，自得吉慶。",
+                "【神意】何事も軽率な振舞いを慎み、時機を待って動くことです。\n【解釈】日頃から善徳を積んで自分を磨き、善良な心を保っていれば、天のご加護により自ずから順調に運ぶでしょう。"
+            ],
+            [
+                3, "第三籤", "第三籤", "中吉",
+                "衣食自然生處有，勸君不用苦勞心；\n但能孝悌存忠信，福祿來成禍不侵。",
+                "【聖意】人宜守舊，安分守己，不可貪求，衣食自然無缺。\n【解曰】安分守己，孝順忠信，福祿自來，禍患不侵。",
+                "【神意】何事も自己の本分を弁えて慎重に行い、足るを知れば衣食の心配はありません。\n【解釈】誠実さと孝悌の心を失わなければ、福禄が自然と成就し災いから守られます。"
+            ],
+            [
+                4, "第四籤", "第四籤", "下下",
+                "去年百事可相宜，若較今年時運衰；\n好把瓣香告神佛，莫教福謝悔無追。",
+                "【聖意】吉事已去，凶禍將來。謀事或願望較難達成，宜誠心祈求神佛保佑，改過遷善。\n【解曰】時運較衰，諸事宜慎，誠心祈神，方免後悔。",
+                "【神意】吉は去り凶が近づいています。計画や願望等は成就し難いため、軽挙妄動を避けましょう。\n【解釈】運気の衰えに備え、過去の過ちを悔い改めて神仏に祈り、善徳を積むことが解決への道です。"
+            ],
+            [
+                5, "第五籤", "第五籤", "中平",
+                "子有三般不自由，門庭蕭索冷如秋；\n若逢牛鼠交承日，萬事回春不用憂。",
+                "【聖意】先憂後喜，先凶後吉。目前雖然不如意，須忍耐等待時機，一切將回春順遂。\n【解曰】先苦後甘，耐心等待，守成保泰，過後呈祥。",
+                "【神意】憂いの後に喜びあり。凶の後に吉あり。思い通りに行かずとも、じっと待ちましょう。\n【解釈】やがて春が訪れるように運気も回復します。焦らず耐えることが大切です。"
+            ],
+            [
+                6, "第六籤", "第六籤", "下下",
+                "何勞鼓瑟更吹笙，寸步如登萬里程；\n彼此懷疑不相信，休將私意憶濃情。",
+                "【聖意】謀為多困，諸事不宜變遷。彼此缺乏信任致生阻礙，只宜守己，切勿躁進。\n{解曰} 謀望難成，疑心生暗鬼，宜守舊靜，不可聽信讒言。",
+                "【神意】何事にも邪魔や苦労は付き物です。軽率な行動を慎み、現状の変化も控えましょう。\n【解釈】私心を捨てて迷いや疑いを断ち切れば、平穏が戻ります。"
+            ],
+            [
+                7, "第七籤", "第七籤", "大吉",
+                "仙風道骨本天生，又遇仙宗為主盟；\n指日丹成謝巖谷，一朝引領向天行。",
+                "【聖意】大吉大利，大富大貴者得此籤萬事如意；貧賤者亦得平安，無須憂慮。\n【解曰】萬事如意，貴人相助，功成名就，福分俱足。",
+                "【神意】大いに富み、何をしてもうまくいく大吉の籤です。\n【解釈】高い才能と貴人の引き立てにより、願望は速やかに成就し飛躍するでしょう。"
+            ],
+            [
+                8, "第八籤", "第八籤", "上上",
+                "年來耕稼苦無收，今歲田疇定有秋；\n況遇太平無事日，士農工賈百無憂。",
+                "【聖意】過去辛苦努力，如今有了豐收結果。以往累積的汗水開始回收，美好未來將至。\n【解曰】苦盡甘來，時運轉通，收穫豐富，百事無憂。",
+                "【神意】これまでの努力が実を結ぶ時期が来ました。時機をしっかり捉えましょう。\n【解釈】長年の苦労が報われ、豊かな実りの秋を迎えるような好運がやってきます。"
+            ],
+            [
+                9, "第九籤", "第九籤", "大吉",
+                "望渠消息向長安，常把菱花仔細看；\n見說文書將入境，今朝喜色上眉端。",
+                "【聖意】久待有好回報，喜訊將至，做任何事皆可稱心如意。\n【解曰】喜訊將至，佳音即達，心想事成，大吉大利。",
+                "【神意】我慢が報われ、遠からず朗報が届きます。何事も思い通りに運ぶでしょう。\n【解釈】待ち望んでいた知らせや吉報が届く大吉の兆しです。"
+            ],
+            [
+                10, "第十籤", "第十籤", "下下",
+                "病患時時命蹇衰，何須打瓦共鑽龜；\n直教重見一陽後，始可求神仗佛持。",
+                "【聖意】命運欠佳時諸事不吉。此時宜修身養性、行善積德，待時機復甦自然轉運。\n{解曰} 運滯時艱，勿妄求外物，修善待時，後必逢凶化吉。",
+                "【神意】運気が来ていない時は、何をするにもうまくいきません。\n【解釈】自己を磨き、善徳を積み、神に祈れば、やがて転機が訪れて運気が回復します。"
+            ],
+            [
+                11, "第十一籤", "第十一籤", "下下",
+                "今年好事一番新，富貴榮華萃汝身；\n誰識機關難料處，到頭獨立轉傷神。",
+                "【聖意】凡事不如意，作事謹慎為要。莫貪求，見好就收，貪求反而受害。\n{解曰} 凡事小心，見好即收，貪念招災，終自傷神。",
+                "【神意】何事もうまく行きませんので、控えめが肝心です。欲張らず潮時を見て切り上げましょう。\n【解釈】強欲は身を滅ぼします。慎重に身を処しなさい。"
+            ],
+            [
+                12, "第十二籤", "第十二籤", "中平",
+                "營為期望在春前，誰料秋來又不然；\n直遇清江貴公子，一生活計始安全。",
+                "【聖意】美好的計畫總是無法成局，須旁人扶持，才可確保生計安全，衣食無虞。\n{解曰} 計畫難成，貴人扶持，中平之局，安居樂業。",
+                "【神意】すばらしい計画は思うように成就しません。しかし貴人の支えがあってこそ安穏な生活ができます。\n【解釈】人との縁や助けを大切にすることで生活の安定が得られます。"
+            ],
+            [
+                13, "第十三籤", "第十三籤", "上吉",
+                "君今庚甲未亨通，且向江頭作釣翁；\n玉兔重生應發跡，萬人頭上逞英雄。",
+                "【聖意】目前時運不佳，只能安守本分，不宜輕舉妄動。目前的等待是為了明日的成就。\n{解曰} 時運未至，安守待時，玉兔交時，發跡英雄。",
+                "【神意】今は運気が良くありません。分を弁え、軽率な行動を慎みましょう。\n【解釈】明日の大成のために今は雌伏の時です。時機が来れば英雄として頭角を現します。"
+            ],
+            [
+                14, "第十四籤", "第十四籤", "中平",
+                "一見佳人便喜歡，誰知去後有多般；\n人情冷暖君休訝，歷涉應知行路難。",
+                "【聖意】先喜後憂，不可憑一時感情用事而犯下錯誤，事後後悔已晚。好事難成，宜慎重。\n{解曰} 先喜後憂，情事多變，人情冷暖，行路艱難。",
+                "【神意】喜びの後に憂いあり。衝動的な行動は後悔の元です。好事魔多し。\n{解釈} 世の中の冷徹さに驚くことなく、堅実に人生の険しい道を歩みなさい。"
+            ],
+            [
+                15, "第十五籤", "第十五籤", "中平",
+                "兩家門戶各相當，不是姻緣莫較量；\n直待春風好消息，卻調琴瑟向蘭房。",
+                "【聖意】凡事宜待新春，才能稱心如意，若輕舉妄動，徒勞無功，終難如願。\n{解曰} 姻緣或謀望待時方成，莫強求，春風化雨，琴瑟和鳴。",
+                "【神意】時機を待てばうまく行きます。軽率な行動は徒労を生むだけで、願いは成就しません。\n{解釈} 縁談や物事は焦らず新春の好機を待つことで調和がもたらされます。"
+            ],
+            [
+                16, "第十六籤", "第十六籤", "下下",
+                "官事悠悠難辨明，不如息了且歸耕；\n旁人煽惑君休信，此事當謀親弟兄。",
+                "【聖意】不要輕易聽從旁人煽惑而迷失方向，凡事要有主見，有事應和親兄弟商量。\n{解曰} 是非莫辨，息訟歸耕，勿信旁言，親兄弟谋。",
+                "【神意】安易に周りの意見やそそのかしに乗って道を見失ってはいけません。\n{解釈} 自分の見解を持ち、時に信頼できる身内と相談するのが正しい道です。"
+            ],
+            [
+                17, "第十七籤", "第十七籤", "下下",
+                "田園價貫好商量，事到公庭彼此傷；\n縱使機關圖得勝，定為後世子孫殃。",
+                "【聖意】告誡人做事要依本分，循正道而行，自然會有圓滿結果，不可爭訟。\n{解曰} 公庭爭訟，彼此兩傷，謀取私利，後世子孫殃。",
+                "【神意】何事も本分があります。正しい道を歩み、無益な争いは避けなさい。\n{解釈} 不正な手段で勝訴しても、子孫に禍根を残す結果となります。"
+            ],
+            [
+                18, "第十八籤", "第十八籤", "中平",
+                "知君指擬是空華，底事茫茫未有涯；\n牢把腳根踏實地，善為善應永無差。",
+                "【聖意】凡事宜緩，不宜妄動，應該腳踏實地，認真求是，勉勵實行才能獲得圓滿結果。\n{解曰} 幻想虚花，切勿妄動，腳踏實地，行善必應。",
+                "【神意】すばらしい結果を得るには、正しい道をゆっくり着実に歩き努力することが必要です。\n{解釈} 地に足をつけて着実に善い行いを積めば、間違いなく報われます。"
+            ],
+            [
+                19, "第十九籤", "第十九籤", "上吉",
+                "嗟子從來未得時，今年星運頗相宜；\n營求動作都如意，和合婚姻誕貴兒。",
+                "【聖意】今時運大開，諸事皆順遂如意，不論求什麼幾乎都可以達成。\n{解曰} 時運大開，謀求如意，婚姻和合，添丁進喜。",
+                "【神意】今は運気が大いに開けています。何事も順調で、思いのままに達成できるでしょう。\n{解釈} これまでの不遇を脱し、望み通りの成果や慶事が訪れます。"
+            ],
+            [
+                20, "第二十籤", "第二十籤", "下下",
+                "一生心事向誰論，十八灘頭說與君；\n世事盡從流水去，功名富貴等浮雲。",
+                "【聖意】孤立無援，感嘆得不到貴人資助，又懷才不遇，有志難伸。凡事必須謹守。\n{解曰} 孤立無援，世事如水，功名浮雲，宜守舊靜。",
+                "【神意】今は孤立無援の時期です。才能は埋もれ、志は果たせません。\n{解釈} 移り行く世間に執着せず、静かに身を処して時節を待ちましょう。"
+            ],
+            [
+                21, "第二十一籤", "第二十一籤", "下下",
+                "與君夙昔結成冤，今日相逢那得緣；\n好把經文多諷誦，祈求戶內保嬋娟。",
+                "【聖意】冤家宜解不宜結，彼此心存正念，行善事，可感動上天而獲得庇佑。\n{解曰} 宿怨相逢，緣分難求，誦經祈福，家宅平安。",
+                "【神意】「恨みは解くもので結ぶものではない」。攻撃的にならず、わだかまりを解くべきです。\n{解釈} 正しい心で善を行い、神仏に祈ることで家族の平穏を保ちましょう。"
+            ],
+            [
+                22, "第二十二籤", "第二十二籤", "上吉",
+                "碧玉池中開白蓮，莊嚴色相自天然；\n生來骨格超凡俗，正是人間第一仙。",
+                "【聖意】過去修身很好，有福報，無需人為造作，萬事皆逢凶化吉，左右逢源。\n{解曰} 天生富貴，超凡脫俗，逢凶化吉，萬事如意。",
+                "【神意】自己を磨く努力が報われ、福が来ます。巡り合わせは全て天意です。\n{解釈} 気高く純粋な心を保つことで、人間関係も運気も最高に調和します。"
+            ],
+            [
+                23, "第二十三籤", "第二十三籤", "下下",
+                "花開花謝在春風，貴賤窮通百歲中；\n羨子榮華今已矣，到頭萬事總成空。",
+                "【聖意】生活不要荒誕糜爛以免萬事成空。應及早預防災禍，懺悔、止惡行善。\n{解曰} 花開花謝，浮華成空，荒誕招禍，及早修省。",
+                "【神意】すさんだ生活をすれば成果は得られません。将来の災いを防ぐため反省が必要です。\n{解釈} むやみな欲や不摂生を慎み、心を入れ替えて善行に努めなさい。"
+            ],
+            [
+                24, "第二十四籤", "第二十四籤", "中吉",
+                "一春萬事苦憂煎，夏裏營求始帖然；\n更遇秋成冬至後，恰如騎鶴與腰纏。",
+                "【聖意】事情開始較艱難或有重重阻礙，但只要堅持到底，絕對能夠達成目標。\n{解曰} 先苦後甘，夏秋漸順，冬至大吉，富貴雙全。",
+                "【神意】何事も初めはうまく行かず邪魔が入りますが、確固たる意志を持てば目標は必ず達成されます。\n{解釈} 後半に行くにつれて運気が急上昇し、大満足の結果が得られます。"
+            ],
+            [
+                25, "第二十五籤", "第二十五籤", "中平",
+                "寅午戍年多阻滯，亥子丑月漸亨嘉；\n待逢玉兔金雞會，枯木逢春自放花。",
+                "【聖意】目前等待真正的機運到來，就會柳暗花明又一春。\n{解曰} 前期阻滯，冬春漸通，玉兔金雞，枯木逢春。",
+                "【神意】今は真の時機の到来を待ちましょう。苦境を乗り越えれば希望が見えてきます。\n{解釈} 焦らず時期を待つことで、枯れ木に花が咲くような好転が訪れます。"
+            ],
+            [
+                26, "第二十六籤", "第二十六籤", "中平",
+                "年來豐歉皆天數，祇是今年旱較多；\n與子定期三日內，田疇霑足雨滂沱。",
+                "【聖意】運事尚未順遂，預示三日內將有生機，要好好把握。\n{解曰} 天時旱潦，三日内通，旱苗得雨，喜事將臨。",
+                "【神意】運気はまだ順調ではありません。しかし三日以内に望みが現れます。機会を掴みましょう。\n{解釈} 苦しい時期であっても間もなく救いや好転のチャンスが訪れます。"
+            ],
+            [
+                27, "第二十七籤", "第二十七籤", "中平",
+                "世間萬物各有主，一粒一毫君莫取；\n英雄豪傑自天生，也須步步循規矩。",
+                "【聖意】不走投機路線，不仗勢權勢，應腳踏實地經營，按照規矩做事。\n{解曰} 各安其分，莫貪非份，英雄豪傑，循規蹈矩。",
+                "【神意】投機的に一獲千金を狙ったり、自分の権勢を笠に着るのは慎みましょう。\n{解釈} 規律を守った着実な取組みと謙虚な姿勢こそが成功の基盤です。"
+            ],
+            [
+                28, "第二十八籤", "第二十八籤", "上吉",
+                "公侯將相本無種，好把勤勞契上天；\n人事盡從天理見，才高豈得困林泉。",
+                "【聖意】凡事憑勤苦經營而得，符合天理不妄為，所盼望的都會如願。\n{解曰} 勤勞契天，天理昭彰，才華得展，富貴可期。",
+                "【神意】何事も汗水垂らしてこそ成果が出ます。天の道理に適った真面目な努力をしましょう。\n{解釈} 才能を発揮し、天道に従って努力を重ねれば、必ず高い地位や成果を得られます。"
+            ],
+            [
+                29, "第二十九籤", "第二十九籤", "上吉",
+                "祖宗積德幾多年，源遠流長慶自然；\n若更操修無倦已，天須還汝舊青氈。",
+                "【聖意】重點在於提升自己的德行，期望中的福報就會隨之而來。\n{解曰} 祖德流芳，修身養性，福報自然，舊業重光。",
+                "【神意】何をしてもうまくいくでしょう。徳を積むことこそ重要です。吉報が自然に齎されます。\n{解釈} 先祖の加護と日頃の徳積みにより、失った名誉や運気を取り戻せます。"
+            ],
+            [
+                30, "第三十籤", "第三十籤", "中平",
+                "奉公謹守莫欺心，自有亨通吉利臨；\n目下營求且休矣，秋期與子定佳音。",
+                "【聖意】只要心態端正，從心做起，自然會有福德來臨。秋天將有佳音。\n{解曰} 奉公守法，莫欺心田，目下暫停，秋期佳音。",
+                "【神意】心に葛藤が生じています。心を入れ替え、正しい心で前に進めば福が導かれます。\n{解釈} 今は無理に動かず、秋の訪れを待つことで良い知らせが届きます。"
+            ],
+            [
+                31, "第三十一籤", "第三十一籤", "中平",
+                "秋冬作事只尋常，春到門庭漸吉昌；\n千里信音符遠望，萱堂快樂未渠央。",
+                "【聖意】秋冬之際運勢平平不宜妄動，等到春天時運才會漸漸吉祥順利。\n{解曰} 秋冬平平，春到吉昌，遠信即至，家門和樂。",
+                "【神意】今は運気が停滞しています。軽率を慎み、じっと耐えていれば順調に行きます。\n{解釈} 季節の巡りとともに運気も春を迎えて活気づき、喜ばしい知らせが届きます。"
+            ],
+            [
+                32, "第三十二籤", "第三十二籤", "下下",
+                "勞心汨汨竟何歸，疾病兼多是與非；\n事到頭來渾似夢，何如休要用心機。",
+                "【聖意】生活中避免口舌是非，和人和睦相處，必能轉回好運。\n{解曰} 勞心費神，多惹是非，如夢一场，休存機心。",
+                "【神意】何事も順調に行きません。しかし不用意な言動を慎み、良い人付き合いをしましょう。\n{解釈} 無駄な策を弄するのをやめ、心を無にすることで災難を避けられます。"
+            ],
+            [
+                33, "第三十三籤", "第三十三籤", "中吉",
+                "不分南北與西東，眼底昏昏耳似聾；\n熟讀黃庭經一卷，不論貴賤與窮通。",
+                "【聖意】世間發生什麼事不用管，別想太多，修心養性自然通達。\n{解曰} 心神茫然，莫管外務，潛心讀經，貴賤皆通。",
+                "【神意】世の中の出来事や自分の将来の命運などは、あれこれ思い悩まないようにしましょう。\n{解釈} 雑念を捨てて精神修養に努めることで、どのような境遇でも心安らかに過ごせます。"
+            ],
+            [
+                34, "第三十四籤", "第三十四籤", "中平",
+                "春夏纔過秋又冬，紛紛謀慮攪心胸；\n貴人垂手來相接，休把私心情意濃。",
+                "【聖意】事情進行不順利可望得到貴人相助，應淡化私心，多些真情義。\n{解曰} 心緒紛亂，貴人相助，淡化私心，真誠以待。",
+                "【神意】順調に運びませんが、今後救いの手が現れる望みはあります。自分本位を慎みなさい。\n{解釈} 私欲を抑えて誠実な態度を貫くことで、貴人的な助けを得て解決に向かいます。"
+            ],
+            [
+                35, "第三十五籤", "第三十五籤", "下下",
+                "一山如畫對清江，門裏團圓事事雙；\n誰料半途分折去，空幃無語對銀缸。",
+                "【聖意】當前看似很好，但先吉後凶恐有變卦。出外有險，不可輕忽。\n{解曰} 先吉後凶，半途分折，孤單寂寞，防備不測。",
+                "【神意】「禍福は糾える縄の如し」。今は吉ですが後に凶が来ます。外出は特に危険です。\n{解釈} 順調な時ほど油断せず、思わぬ別れや破綻に備えて慎重に行動しなさい。"
+            ],
+            [
+                36, "第三十六籤", "第三十六籤", "上吉",
+                "功名富貴自能為，偶著先鞭莫問伊；\n萬里鵬程君有分，吳山頂上好鑽龜。",
+                "【聖意】成就會來得較晚，不必心急，不可躁進，欲速則不達。\n{解曰} 功名可成，莫急躁進，萬里鵬程，大展宏圖。",
+                "【神意】成就には時間がかかります。焦りやせっかちは禁物ですが鵬程の分あり。\n{解釈} 実力を蓄えて機を待てば、必ずや大いなる成功と名誉を手にすることができます。"
+            ],
+            [
+                37, "第三十七籤", "第三十七籤", "中平",
+                "焚香來告復何辭，善惡平分汝自知；\n屏卻昧公心裏事，出門無礙是通時。",
+                "【聖意】若事情有困頓，若能先從自己改過，則事能善。\n{解曰} 神前坦白，自知善惡，屏卻私心，出門通達。",
+                "【神意】苦しみや困惑は他人のせいではなく自分のせいです。自分を改めましょう。\n{解釈} 良心に恥じない行いを心がけることで、あらゆる障害が消えてスムーズに進めます。"
+            ],
+            [
+                38, "第三十八籤", "第三十八籤", "下下",
+                "蛩吟唧唧守孤幃，千里懸懸望信歸；\n等得榮華公子到，秋冬括括雨靡靡。",
+                "【聖意】所問之事結局不善，不宜決定，靜待世局變化。\n{解曰} 孤守期盼，信音難果，榮華未到，秋冬多雨。",
+                "【神意】願いは叶いません。如何なる決定もうまく行かないため静かに待ちましょう。\n{解釈} 期待しすぎると失望を招きます。今は無理に動かず耐えるべき時期です。"
+            ],
+            [
+                39, "第三十九籤", "第三十九籤", "下下",
+                "北山門外好安居，若問終時慎厥初；\n堪笑包藏許多事，鱗鴻雖便莫修書。",
+                "【聖意】開始做事要謹慎想清楚，不宜躁進。對不法無理之事以寬宏大量包容。\n{解曰} 慎始安居，莫管闲事，書信傳情，暫且休題。",
+                "【神意】何事も早まったりせず慎重に行いましょう。無駄な詮索は禁物です。\n{解釈} 軽率に動き回らず、現状維持を心がけてトラブルを避けなさい。"
+            ],
+            [
+                40, "第四十籤", "第四十籤", "上吉",
+                "新來換得好規模，何用隨他步與趨；\n只聽耳邊消息到，崎嶇歷盡見亨衢。",
+                "【聖意】一切事情要有果斷主見，不被別人左右，依自己意願改變將有美好未來。\n{解曰} 自立規模，不隨俗流，歷盡崎嶇，終見大道。",
+                "【神意】他人の意見に左右されず、何事も自分で決定し自分の見解を持ちましょう。\n{解釈} これまでの苦難を乗り越え、独自の判断で進むことで大いなる開運へと繋がります。"
+            ],
+            [
+                41, "第四十一籤", "第四十一籤", "上吉",
+                "自南自北自東西，欲到天涯誰作梯；\n遇鼠逢牛三弄笛，好將名姓榜頭題。",
+                "【聖意】先難後易之意，全憑自力無人可靠。逢鼠年牛年則吉，金榜題名。\n{解曰} 自力更生，無人可靠，子丑之年，名榜前題。",
+                "【神意】苦の後に楽が来ます。他人ではなく自分の力に頼りましょう。子年と丑年は吉です。\n{解釈} 自らの実力で困難を突破し、やがて栄光の座を掴む大吉の運気です。"
+            ],
+            [
+                42, "第四十二籤", "第四十二籤", "中吉",
+                "我會許汝事和諧，誰料修為果自乖；\n但改新圖莫依舊，營謀應得稱心懷。",
+                "【聖意】應改過向善、行善修德，改變作法舊習，所求之事即能順遂。\n{解曰} 改過自新，莫守舊規，謀望更新，稱心如意。",
+                "【神意】過ちを改め新しい方針で臨めば、何事も順調に行き願いが叶います。\n{解釈} 過去のやり方に固執せず、柔軟に刷新することで望ましい成果が得られます。"
+            ],
+            [
+                43, "第四十三籤", "第四十三籤", "中吉",
+                "一紙官書火急催，扁舟速下浪如雷；\n雖然目下多驚險，保汝平安去復回。",
+                "【聖意】先凶後吉，在神明庇祐下有驚無險，逢凶化吉，終能度過難關平安。\n{解曰} 急事臨頭，浪如驚險，神明庇佑，去後平安。",
+                "【神意】凶の後に吉。何事も神のご加護の下、凶が吉となります。最後は成就します。\n{解釈} 一見すると危機的な状況ですが、無事に切り抜けられますのでご安心ください。"
+            ],
+            [
+                44, "第四十四籤", "第四十四籤", "中吉",
+                "汝是人中最吉人，誤為誤作損精神；\n堅牢一念酬香願，富貴榮華萃汝身。",
+                "【聖意】由於一時錯誤導致困擾，若能悔改虔誠許願，則名利雙收。\n{解曰} 本性吉祥，一時糊塗，堅心懺悔，富貴榮華。",
+                "【神意】魔が差すと事を誤りますが、過ちを自覚して誠意を尽くせば名誉も利益も得られます。\n{解釈} 初心に立ち返り、誠心誠意取り組むことで豊かな福徳がもたらされます。"
+            ],
+            [
+                45, "第四十五籤", "第四十五籤", "中平",
+                "好將心地力耕耘，彼此山頭總是境；\n陰地不如心地好，修為到底卻輸君。",
+                "【聖意】雖然德行好但別人可能對你無禮，堅持此德將來勢必有善報。\n{解曰} 心地耕耘，厚德載物，莫計眼前，到底贏君。",
+                "【神意】行いも良く好人物ですが、他人に無礼を振舞われる可能性があります。心を保ちなさい。\n{解釈} 目先の損得に惑わされず、誠実な心を磨き続けることが最終的な勝利につながります。"
+            ],
+            [
+                46, "第四十六籤", "第四十六籤", "中平",
+                "君是山中萬戶侯，信知騎馬勝騎牛；\n今朝馬上看山色，爭似騎牛得自由。",
+                "【聖意】凡事要謹慎而行，不可想到什麼就做什麼，要全面考慮，平淡最真。\n{解曰} 身居高位，騎馬騎牛，知足常樂，不如自由。",
+                "【神意】何事もよく考えて慎重に行動しましょう。思いのままの華やかさより自由が尊いことも。\n{解釈} 高みを追い求めるよりも、身の丈にあった平穏や自由を大切にしなさい。"
+            ],
+            [
+                47, "第四十七籤", "第四十七籤", "下下",
+                "與君萬語復千言，祗欲平和雪爾冤；\n訟則終凶君記取，試於清夜把心捫。",
+                "【聖意】凡事心平氣和，聽人勸阻，不以意氣用事，謹節自制，禍端自然消失。\n{解曰} 平和勸解，切莫訴訟，清夜自省，禍端消除。",
+                "【神意】心を穏やかに他人の忠告を聞き、過ちを反省し自制すれば、災いは消え去ります。\n{解釈} 争い事は凶を招きます。夜静かに自らの胸に手を当てて反省しなさい。"
+            ],
+            [
+                48, "第四十八籤", "第四十八籤", "中平",
+                "登山涉水正天寒，兄弟姻親那得安；\n不遇虎頭人一喚，全家誰保汝重歡。",
+                "【聖意】遇到相逢的人可能是貴人，在貴人指引幫忙之下脫離困境。\n{解曰} 涉水登山，天寒運滞，貴人相喚，全家重歡。",
+                "【神意】人との出会いを大切にしましょう。その方に導かれ助けられ、今の逆境が乗り越えられます。\n{解釈} 困難な道中ですが、頼りになる人物の出現によって救済されます。"
+            ],
+            [
+                49, "第四十九籤", "第四十九籤", "下下",
+                "彼此居家只一山，如何似隔鬼門關；\n日月如梭人易老，許多勞碌不如閒。",
+                "【聖意】心裡懷有不好的心態以致事情受困，自我檢視轉善則問題化解。\n{解曰} 近在咫尺，如隔鬼門，歲月易老，勞碌不如閒。",
+                "【神意】邪まな心や不和により困難が生じています。よく反省して休養を取りましょう。\n{解釈} 無駄な争いや骨折りはほどほどにし、心の平穏を取り戻すことが先決です。"
+            ],
+            [
+                50, "第五十籤", "第五十籤", "上吉",
+                "人說今年勝去年，也須步步要週旋；\n一家和氣多生福， 菲讒言莫聽偏。",
+                "【聖意】今年明顯比去年好，運勢漸順遂，循規矩行事、和氣致祥會有更多福氣。\n{解曰} 今年勝去，步步週旋，和氣生福，莫聽讒言。",
+                "【神意】今年は去年よりも良くなります。運気も順調で、一家の和合と正しい行いが福を呼びます。\n{解釈} 周囲の陰口や偏った意見に惑わされず、和気あいあいと進むことで幸運が広がります。"
+            ],
+            [
+                51, "第五十一籤", "第五十一籤", "上吉",
+                "君今百事且隨緣，水到渠成聽自然；\n莫嘆年來不如意，喜逢新運稱心田。",
+                "【聖意】一時受阻不必太在意，隨緣自適，即將來臨的好運才值得珍惜。\n{解曰} 隨緣自然，水到渠成，過往莫嘆，新運稱心。",
+                "【神意】一時的な妨げをさほど気にする必要はありません。今後やってくる好運を大切にしましょう。\n{解釈} 肩の力を抜いて流れに身を任せることで、望み通りの新運が訪れます。"
+            ],
+            [
+                52, "第五十二籤", "第五十二籤", "上吉",
+                "兀坐幽居歎寂寥，孤燈掩映度清宵；\n黃金忽報秋光好，活計扁舟渡北朝。",
+                "【聖意】目前雖然孤單寂寞，好運將發生在秋天，困境從此安定，轉危為安。\n{解曰} 幽居寂寞，秋光轉好，黃金喜報，扁舟渡安。",
+                "【神意】今は寂しくとも、秋には好運が来て苦境も落ち着き、大いに発展します。\n{解釈} 忍耐の夜を越えて、実りの秋に素晴らしい転機とチャンスが到来します。"
+            ],
+            [
+                53, "第五十三籤", "第五十三籤", "下下",
+                "艱難險阻路蹊蹺，南鳥孤飛依北巢；\n今日貴人會識面，相逢卻在夏秋交。",
+                "【聖意】凡事歷涉艱難未如意，到了夏秋之際得到大力幫忙，有了新轉機。\n{解曰} 險阻重重，南鳥依巢，夏秋之交，貴人相逢。",
+                "【神意】何事も苦境にあってうまくいきませんが、夏から秋にかけて助けが得られます。\n{解釈} 道中は険しいですが、辛抱することで夏秋に救いの手が差し伸べられます。"
+            ],
+            [
+                54, "第五十四籤", "第五十四籤", "中平",
+                "萬人叢裏逞英豪，便欲飛騰霄漢高；\n爭奈承流風未便，青燈黃卷且勤勞。",
+                "【聖意】凡事雖有企圖，但時機未至只宜守成不可躁進，須勤勞讀書工作等待好運。\n{解曰} 英雄無用，風向未便，青燈黃卷，且自勤勞。",
+                "【神意】万事思い通りにはいきません。控えめに焦らず、真面目に努力し好運を待ちましょう。\n{解釈} 今は目立たぬところで地道に研鑽を積むことが将来の飛躍につながります。"
+            ],
+            [
+                55, "第五十五籤", "第五十五籤", "中平",
+                "勤耕力作莫蹉跎，衣食隨時安分過；\n縱使經商收倍利，不如逐歲廩米多。",
+                "【聖意】凡事隨緣認份不多貪求，清廉勤儉則能安足一生，實實在在最好。\n{解曰} 勤耕安分，莫貪倍利，積穀防飢，一生安足。",
+                "【神意】何事も縁です。欲張らず清廉潔白にして節制に努めれば、人生は安泰です。\n{解釈} 大金庫を狙うより、日々の勤勉と堅実な蓄えこそが生活を安定させます。"
+            ],
+            [
+                56, "第五十六籤", "第五十六籤", "下下",
+                "心頭理曲強詞遮，直欲欺官行路斜；\n一旦醜形臨月鏡，身投憲網莫咨嗟。",
+                "【聖意】不可存僥倖心，應正直理性從事，行善積德可免除凶災，莫觸法網。\n{解曰} 理曲強詞，欺心走邪，明鏡照形，法網難逃。",
+                "【神意】幸運を期待してはいけません。不正直な行いはやがて露見し災いを招きます。\n{解釈} 良心に背く不正や言い訳を厳に慎み、正道に立ち戻りなさい。"
+            ],
+            [
+                57, "第五十七籤", "第五十七籤", "中平",
+                "事端百出慮雖長，莫聽人言自主張；\n一著仙機君記取，紛紛鬧裏更思量。",
+                "【聖意】事情繁雜時千萬不可由他人幫忙決定，相信自己、冷靜思考就對了。\n{解曰} 事端百出，自主主張，鬧中取靜，深思熟慮。",
+                "【神意】他人の決定に頼ってはいけません。必ず自分で考え、自分を信じましょう。\n{解釈} 周囲の雑音やアドバイスに惑わされず、自らの頭でしっかりと熟考しなさい。"
+            ],
+            [
+                58, "第五十八籤", "第五十八籤", "上吉",
+                "蘇秦三寸足平生，富貴功名在此行；\n更好修為陰騭事，前程萬里自通亨。",
+                "【聖意】靠口才與才能謀生，若要富貴常在必須多做善事，前程遠大順利。\n{解曰} 三寸不爛，富貴可期，修善積德，前程萬里。",
+                "【神意】話術や能力によって道が開けます。より多くの善行をなせば地位や財産も保証されます。\n{解釈} 自分の特技を生かして果敢に行動し、同時に徳を積むことで大成功を収めます。"
+            ],
+            [
+                59, "第五十九籤", "第五十九籤", "中平",
+                "門衰戶冷苦伶仃，可嘆祈求不一靈；\n幸有祖宗陰騭在，香煙未斷續螟蛉。",
+                "【聖意】本身福薄故求謀不順，由於祖上有德，多行善積德讓謀求漸趨順遂。\n{解曰} 門庭冷落，祈求未靈，祖德庇佑，後嗣綿延。",
+                "【神意】薄幸ですが先祖が積んだ徳により一縷の希望があります。多くの善徳を積みましょう。\n{解釈} 現状は苦しいですが、先祖の加護と自身の善行によって細くとも命脈が保たれます。"
+            ],
+            [
+                60, "第六十籤", "第六十籤", "上上",
+                "羨君兄弟好名聲，一意謙攜莫自矜；\n丹詔槐黃消息近，巍巍科甲兩同登。",
+                "【聖意】好事成雙謀求如願，要保持謙卑，不要排斥或忌妒，科甲同登。\n{解曰} 名聲遠播，謙虛為懷，佳音速至，金榜同登。",
+                "【神意】良いことが同時にやってきて全て思い通りに行きます。謙虚を保ちましょう。\n{解釈} 仲間と共に栄誉に浴する最高の大吉。おごらず謙虚さを忘れないことが肝要です。"
+            ],
+            [
+                61, "第六十一籤", "第六十一籤", "中吉",
+                "嘯聚山林兇惡儔，善良無事苦煎憂；\n主人大笑出門去，不用干戈盜賊休。",
+                "【聖意】遇到凶險會自動化解，若以小人之心以對反招厄，必須培養光明正大胸襟。\n{解曰} 兇惡在旁，善良無憂，主人一笑，盜賊自休。",
+                "【神意】重大な問題が起こっても自然に解決されます。公明正大を心がけましょう。\n{解釈} 無用な争いや恐れを抱かず、泰然と構えていることで問題は自然に鎮まります。"
+            ],
+            [
+                62, "第六十二籤", "第六十二籤", "中吉",
+                "百千人面虎狼心，賴汝干戈用力深；\n得勝回時秋漸老，虎頭城裏喜相尋。",
+                "【聖意】經過激烈征戰有驚無險，晚年安逸，喜事連連。\n{解曰} 人心险恶，奮力克敵，秋深得勝，喜事重重。",
+                "【神意】何事においても激しい争いや苦労がありますが結果は吉です。晩年は落ち着きます。\n{解釈} 厳しい競争や試練を乗り越えた先に、確かな勝利と喜びが待っています。"
+            ],
+            [
+                63, "第六十三籤", "第六十三籤", "中平",
+                "曩時征北且圖南，筋力雖衰尚一堪；\n欲識生前君大數，前三三與後三三。",
+                "【聖意】若要成就需要耐心、耐勞，堪得起反覆操勞就能出頭天。\n{解曰} 南北奔波，筋力雖衰，命中有數，耐心自安。",
+                "【神意】成功を望むなら忍の一字です。幾度も繰返される苦労に耐えれば頭角を現せます。\n{解釈} 年齢や疲労に負けず、定められた運命のサイクルを信じて粘り強く取り組みなさい。"
+            ],
+            [
+                64, "第六十四籤", "第六十四籤", "上上",
+                "吉人相遇本和同，況有持謀天水翁；\n人力不勞公論協，事成功倍笑談中。",
+                "【聖意】上上籤，萬事稱心如意，得貴人提拔，出入皆吉利，事半功倍。\n{解曰} 吉人天相，貴人扶持，不勞而成，笑談成功。",
+                "【神意】大吉です。万事順調です。抜擢もあり進むも退くも吉、笑談のうちに成就します。\n{解釈} 優れた協力者や導き手に恵まれ、驚くほどスムーズに大願が成就します。"
+            ],
+            [
+                65, "第六十五籤", "第六十五籤", "上上",
+                "朔風凜凜正窮冬，漸覺門庭喜氣濃；\n更入新春人事後，衷言方得信先容。",
+                "【聖意】沉滯運氣完全開通，心想事成，出現貴人幫忙實現想法，喜氣洋洋。\n{解曰} 冬盡春來，喜氣洋洋，新春人事，信義相通。",
+                "【神意】滞っていた運気が流れ始めました。恩人が現れ希望が叶い、春を迎えます。\n{解釈} 厳しい冬の寒さの後に、門戸に温かい春の訪れと素晴らしい縁談が舞い込みます。"
+            ],
+            [
+                66, "第六十六籤", "第六十六籤", "上上",
+                "耕耘只可在鄉邦，何用求謀向外方；\n只見今年新運好，門闌喜氣事雙雙。",
+                "【聖意】不宜遠行只宜守舊，在家鄉深耕吉慶，家中喜事連連好運不斷。\n{解曰} 安土重遷，鄉邦耕耘，新運大好，喜事雙雙。",
+                "【神意】遠出は控え、故郷や足元を固めるのが大吉です。家門に喜びが重なります。\n{解釈} 慣れ親しんだ環境や足元の基盤を守り抜くことで、次々と嬉しいことが起こります。"
+            ],
+            [
+                67, "第六十七籤", "第六十七籤", "中平",
+                "纔發君心天已知，何須問我決狐疑；\n願子改圖從孝悌，不愁家室不相宜。",
+                "【聖意】善惡有報，若能除掉心中壞念頭，改過從孝悌做起，家室和順。\n{解曰} 心念天知，莫決狐疑，改圖孝悌，家室和順。",
+                "【神意】因果応報。邪念を取り払い、家族を大切にする孝悌の心を持てば家は栄えます。\n{解釈} 神仏はすべてお見通しです。初心に帰り、親孝行や和合に努めなさい。"
+            ],
+            [
+                68, "第六十八籤", "第六十八籤", "中平",
+                "南販珍珠北販鹽，年來幾倍貨財添；\n勸君止此求田舍，心欲多時何日厭。",
+                "【聖意】勸勉人知足常樂，事業有成應見好就收，否則貪念招災。\n{解曰} 南北販賣，財利大增，知足常樂，莫貪無厭。",
+                "【神意】足るを知れば憂いなし。これ以上の強欲は災厄を招きますので収めましょう。\n{解釈} 利益が出たら欲を張らず、田舎に引っ込んで穏やかに暮らすのが賢明です。"
+            ],
+            [
+                69, "第六十九籤", "第六十九籤", "中平",
+                "捨舟遵路總相宜，慎勿嬉遊逐貴兒；\n一夜樽前兄與弟，明朝仇敵又相隨。",
+                "【聖意】行為舉止腳踏實地，謹防親朋小人侵害，名利莫貪求，安守為宜。\n{解曰} 棄水登陸，步步為營，防範小人，莫交非人。",
+                "【神意】何事も着実に行動し周囲とは慎重に付き合いましょう。世の交際は移ろいやすいもの。\n{解釈} 上辺だけの付き合いや軽薄な遊び仲間に深入りせず、地道に生きなさい。"
+            ],
+            [
+                70, "第七十籤", "第七十籤", "中平",
+                "雷雨風雲各有司，至誠禱告莫生疑；\n與君定約為霖日，正是蘊隆中伏時。",
+                "【聖意】凡事需等待時機才能成事，誠心祈禱必換得未來順遂，甘霖將降。\n{解曰} 時機各有，誠心祈禱，甘霖降臨，中伏得时。",
+                "【神意】何事も時機を待ってこそ成就します。誠心誠意祈れば、暑さの盛りに雨が降ります。\n{解釈} 焦らず時期が熟するのを待ち、誠実な祈りと努力を続けなさい。"
+            ],
+            [
+                71, "第七十一籤", "第七十一籤", "中平",
+                "喜鵲簷前報好音，知君千里欲歸心；\n繡幃重結鴛鴦帶，葉落霜凋暮色侵。",
+                "【聖意】先難後易，所問之事雖有喜鵲報好音，但晚景或過程略有遲暮之感。\n{解曰} 喜鵲報音，歸心似箭，鴛鴦重結，晚景霜凋。",
+                "【神意】喜びの知らせはありますが、物事の成就には時間がかかり晩年のようすに注意。\n{解釈} 良い知らせは届きますが、油断せず着実に絆を結び直していきなさい。"
+            ],
+            [
+                72, "第七十二籤", "第七十二籤", "下下",
+                "河渠傍路有高低，可歎長途日已西；\n縱有榮華好時節，直須猴犬換金雞。",
+                "【聖意】目前運勢不佳，日落西山，必須耐心等待時機（猴犬換金雞），不可心急。\n{解曰} 河渠高低，日落西山，榮華未到，待時而動。",
+                "【神意】今は運気が良くありません。辛抱強く時期の到来を待ちましょう。焦ると厄運を招きます。\n{解釈} 夕暮れの寂しさを耐え忍び、干支の巡り合わせによる転機を待ちましょう。"
+            ],
+            [
+                73, "第七十三籤", "第七十三籤", "下下",
+                "憶昔蘭房分半釵，而今忽把信音乖；\n痴心指望成連理，到底誰知事不諧。",
+                "【聖意】以前的誓約早已變化，不必再等，早點認清事實重新來過，事不諧。\n{解曰} 舊盟已乖，信音斷絕，痴心妄想，到底不諧。",
+                "【神意】過去の誓約は失われました。もはや待つ必要はなく、すみやかに新しい道へ。\n{解釈} 実らない縁にいつまでも執着せず、きっぱりと気持ちを切り替えなさい。"
+            ],
+            [
+                74, "第七十四籤", "第七十四籤", "上吉",
+                "崔巍崔魏復崔巍，履險如夷去復來；\n身似菩提心似鏡，長安一道放春回。",
+                "【聖意】處於險境但不受影響，心存善念必得善果，接著是順暢吉運，長安春回。\n{解曰} 歷險如夷，心如明鏡，善念善果，長安春回。",
+                "【神意】危機的状況にあっても全く影響はありません。心が清らかならば吉運が舞込みます。\n{解釈} 幾重の難所も心の正しさと柔軟さで平坦に変え、素晴らしい春を迎えます。"
+            ],
+            [
+                75, "第七十五籤", "第七十五籤", "中吉",
+                "生前結得好緣姻，一笑相逢情自親；\n相當人物無高下，得意休論富與貧。",
+                "【聖意】會遇到相合的人或處事順遂，自然天成，前世因緣，不論富貧。\n{解曰} 前世好緣，一笑相逢，門當戶對，莫論貧富。",
+                "【神意】相性の良い人に出会うか思い通りに事が運ぶでしょう。富貴にとらわれません。\n{解釈} 素晴らしい縁談や出会いに恵まれます。損得勘定を抜きにして大切にしなさい。"
+            ],
+            [
+                76, "第七十六籤", "第七十六籤", "中平",
+                "三千法律八千文，此事何如說與君；\n善惡兩途君自作，一生禍福此中分。",
+                "【聖意】一生的禍福完全由自己的作為所決定，善惡自選，因果報應。\n{解曰} 法律三千，善惡自作，一生禍福，此中分別。",
+                "【神意】人生の禍福は全て自分の行いによって決まるのです。正しい選択を。\n{解釈} すべての結果は自らの日頃の選択と行いから生まれます。自重しなさい。"
+            ],
+            [
+                77, "第七十七籤", "第七十七籤", "下下",
+                "木有根 水有源，君當自此究其原；\n莫隨道路人閒話，訟則終凶是至言。",
+                "【聖意】凡事自省發生的根源，不要聽信外人讒言，切記訴訟到底主凶。\n{解曰} 木有本源，自我反省，莫信人言，訟則終凶。",
+                "【神意】何事も表面だけを見ずその根源を見極めましょう。是非を弁え訴訟は避けなさい。\n{解釈} 他人の噂話に惑わされず、トラブルの根本原因を見つめて和解を心がけなさい。"
+            ],
+            [
+                78, "第七十八籤", "第七十八籤", "下下",
+                "家道豐腴自飽溫，也須肚裏立乾坤；\n財多害己君當省，福有胚胎禍有門。",
+                "【聖意】禍福都是自找的，家道雖豐需有主見，財多害己，從善招福。\n{解曰} 家道豐盈，自立乾坤，財多害己，福禍自招。",
+                "【神意】禍福は自らが招くものです。財の執着は身を滅ぼすため自省しなさい。\n{解釈} 恵まれた環境に甘えず、しっかりとした哲学を持ち、慎ましく生きなさい。"
+            ],
+            [
+                79, "第七十九籤", "第七十九籤", "中平",
+                "乾亥來龍仔細看，坎居午向自當安；\n若移丑艮陰陽逆，門戶凋零家道難。",
+                "【聖意】凡事依天理，不違背常理吉凶方位，否則招來禍患家道難。\n{解曰} 地理陰陽，順理則安，逆天而行，家道凋零。",
+                "【神意】何事も天の理に従いましょう。道に悖り逆らえば災いを招きます。\n{解釈} 基本のルールや道理を無視して勝手な変更を行うと、家庭や組織が衰退します。"
+            ],
+            [
+                80, "第八十籤", "第八十籤", "中平",
+                "一朝無事忽遭官，也是門衰墳未安；\n改換陰陽移禍福，勸君莫作等閒看。",
+                "【聖意】必須有所改變才能轉禍為福，起身動一動，或調整風水祖墳心態。\n{解曰} 無故遭官，風水家道，改換陰陽，轉禍為福。",
+                "【神意】環境や姿勢の変化が必要です。そうすれば禍が福に転じます。\n{解釈} 不意の災難を軽く見ず、根本的な方向転換や環境の改善を図りなさい。"
+            ],
+            [
+                81, "第八十一籤", "第八十一籤", "中吉",
+                "假君財物自當還，謀賴欺心他自奸；\n幸有高臺明月鏡，請來對照破機關。",
+                "【聖意】借人財物應歸還，雖有人欺心奸詐，幸有明月鏡照出真相破機關。\n{解曰} 借物當還，莫存欺心，明月照鏡，真相大白。",
+                "【神意】天網恢恢疎にして漏らさず。不正やごまかしはやがて必ず明るみに出ます。\n{解釈} 正義の鏡に照らされれば、相手の企みは破られ、正しい者が救われます。"
+            ],
+            [
+                82, "第八十二籤", "第八十二籤", "上吉",
+                "彼亦儔中一輩賢，勸君特達與周旋；\n此時賓主歡相會，他日王侯卻並肩。",
+                "【聖意】若遇賢明之人應多密切交往，是你將來發達並肩的貴人。\n{解曰} 結交賢者，以禮周旋，歡喜相會，並肩王侯。",
+                "【神意】聡明な人と出会えば将来の活躍を後押ししてくれます。大切に付き合いましょう。\n{解釈} 優れた才能を持つ人物と親交を深めることで、将来的に大きな地位を分かち合えます。"
+            ],
+            [
+                83, "第八十三籤", "第八十三籤", "下下",
+                "隨分堂前赴粥鐘，何須妄想苦憂煎；\n主張門戶誠難事，百歲安閒得幾年。",
+                "【聖意】只宜守成不可妄為，隨緣認分，多加妄想只會陷入痛苦，安閒幾年。\n{解曰} 隨分過日，莫存妄想，門戶難主，安閒難得。",
+                "【神意】軽率な行動や過度な野心はいけません。余計な考えは自分を苦しめます。\n{解釈} 身の丈に合った平穏な生活に感謝し、無理な大望は控えるのが賢明です。"
+            ],
+            [
+                84, "第八十四籤", "第八十四籤", "中平",
+                "君家事緒更紛然，當局須知一著先；\n長舌婦人休酷聽，力行禮義要心堅。",
+                "【聖意】不可聽信他人搬弄是非長舌話，要有主見，信心毅力努力，禮義心堅。\n{解曰} 家事紛擾，先機掌握，莫聽讒言，力行禮義。",
+                "【神意】他人の言いなりや噂話ではいけません。確固たる自信と意志で行動しなさい。\n{解釈} 周囲の雑音をシャットアウトし、道義に則った強い信念で立ち回りなさい。"
+            ],
+            [
+                85, "第八十五籤", "第八十五籤", "中平",
+                "一春風雨正瀟瀟，千里行人去路遙；\n移寡就多君得計，如何歸路轉無聊。",
+                "【聖意】謹守安分不可妄求，適時調整策略，有時轉念思考可能是不錯選擇。\n{解曰} 風雨瀟瀟，路途遙遠，調整策略，歸路無聊。",
+                "【神意】何事も慎重にし無理に求めてはいけません。時には方針転換も必要です。\n{解釈} 進むべき道に迷いが生じますが、冷静に損得と状況を見極めなさい。"
+            ],
+            [
+                86, "第八十六籤", "第八十六籤", "上吉",
+                "一舟行貨好招邀，積少成多自富饒；\n常把他人比自己，管須日後勝今朝。",
+                "【聖意】循序漸進欲速不達，積少成多，保有同理心仁心，富裕幸福可持久。\n{解曰} 貨財招邀，積少成多，同理待人，日後勝今。",
+                "【神意】急いては事を仕損じる。一歩一歩進みましょう。仁愛の心を保てば豊かになります。\n{解釈} 商売も人生も着実な積み重ねが大切です。他者への思いやりが成功を呼びます。"
+            ],
+            [
+                87, "第八十七籤", "第八十七籤", "中平",
+                "陰裏詳看怪爾曹，舟中敵國笑中刀；\n藩籬剖破渾無事，一種天生惜鳳毛。",
+                "【聖意】凡事真心相待光明正直，可避免暗中敵人暗算，化凶為吉。\n{解曰} 暗藏危機，笑里藏刀，坦誠相見，化險為夷。",
+                "【神意】公明正大な心を持ち人と誠実に付き合いましょう。内輪の壁を破れば無事に。\n{解釈} 身近に潜む悪意や裏表のある人物に注意し、誠実さで乗り切りなさい。"
+            ],
+            [
+                88, "第八十八籤", "第八十八籤", "上吉",
+                "從前作事總徒勞，纔見新春時漸遭；\n百計營求都得意，更須守己莫心高。",
+                "【聖意】即將轉好運須把握，過去徒勞，新春漸順，百事得意切莫心高。\n{解曰} 過去徒勞，新春轉運，百謀皆遂，切莫驕傲。",
+                "【神意】好運に転じようとしています。思い通りになりますが、有頂天になると損をします。\n{解釈} 長年の苦労が実を結び順風満帆となりますが、謙虚さを失わないでください。"
+            ],
+            [
+                89, "第八十九籤", "第八十九籤", "中平",
+                "樽前無事且高歌，時未來兮奈若何；\n白馬渡江雖日暮，虎頭城裏看巍峨。",
+                "【聖意】目前時運不佳必須忍耐等待時機，以樂觀心態等待晚景榮華。\n{解曰} 時運未至，且自高歌，白馬渡江，終見巍峨。",
+                "【神意】今は運気が良くありません。じっと耐えて時機を待ちましょう。晩年は栄えます。\n{解釈} 焦らず酒を酌み交わして気楽に構えていれば、やがて大いなる舞台が整います。"
+            ],
+            [
+                90, "第九十籤", "第九十籤", "中平",
+                "崆峒城裏事如麻，無事如君有幾家；\n勸汝不須勤致禱，徒營生事苦咨嗟。",
+                "【聖意】生活平穩知足即好，求神無益，安分守己免得徒增煩惱困擾。\n{解曰} 紛擾如麻，安分最好，莫妄求神，徒增煩惱。",
+                "【神意】財産も地位もほどほどですが平穏です。余計な祈願や野心は無意味です。\n{解釈} 現状ですでに十分に恵まれています。贅沢を望んで自ら苦労を背負わないこと。"
+            ],
+            [
+                91, "第九十一籤", "第九十一籤", "中平",
+                "佛說淘沙始見金，只緣君子苦勞心；\n榮華總得詩書效，妙裏工夫仔細尋。",
+                "【聖意】沒有不勞而獲的事，經過一番勞苦洗禮，富貴名利才會隨之而來。\n{解曰} 淘沙見金，勞心苦志，詩書功名，妙理自尋。",
+                "【神意】労なくして収穫なし。一通りの苦労を経れば地位、財産、名誉がやって来ます。\n{解釈} 砂金を選り分けるように、地道な努力と教養の積み重ねが宝を生み出します。"
+            ],
+            [
+                92, "第九十二籤", "第九十二籤", "下下",
+                "今年禾穀不如前，物價喧騰倍百年；\n災數流行多疫瘋，一陽復後始安全。",
+                "【聖意】今年運氣不佳諸事不順，災疫流行，要等到年尾冬至一陽生才能安全。\n{解曰} 禾穀不登，物價騰貴，災疫流行，冬至平安。",
+                "【神意】今年は運気が悪く何事もうまく行きません。冬至の頃に落ち着きますので慎重に。\n{解釈} 大いなる不景気や災厄の時期です。無理な投資や行動は避け、ひたすら守りに徹しなさい。"
+            ],
+            [
+                93, "第九十三籤", "第九十三籤", "中平",
+                "春來雨水太連綿，入夏晴乾雨又愆；\n節氣直交三伏始，喜逢滂沛足田園。",
+                "【聖意】一開始謀事不順利或氣候不調，最後還是會久旱逢甘霖解決危機。\n{解曰} 春雨連綿，夏旱缺水，三伏雨足，田園豐收。",
+                "【神意】最初は不調ですが最後には恵みの雨が降り問題が解決します。\n{解釈} 前半の不順に挫けず耐え抜くことで、夏の盛りには潤沢な成果がもたらされます。"
+            ],
+            [
+                94, "第九十四籤", "第九十四籤", "中平",
+                "一般器用與人同，巧斷輪輿梓匠工；\n凡事有緣且隨分，秋冬方遇主人翁。",
+                "【聖意】平時專注手藝鑽研，凡事隨緣，等待時機到了秋冬就會遇到賞識伯樂。\n{解曰} 技藝與人同，隨分守己，秋冬之交，遇主知音。",
+                "【神意】日頃から研鑽を積んでいる技術は時機（秋冬）が来れば評価してくれます。\n{解釈} 焦らず自分の専門技術や腕を磨き続けることで、見出してくる人物が現れます。"
+            ],
+            [
+                95, "第九十五籤", "第九十五籤", "中平",
+                "知君袖裏有驪珠，生不逢辰亦強圖；\n可歎頭顱已如許，而今方得貴人扶。",
+                "【聖意】目前時機不好名利晚成，空懷才華，充實能力等貴人幫助便是轉運時。\n{解曰} 懷珠未遇，強求生悲，歲月空過，貴人扶持。",
+                "【神意】今は時機が良くなく地位や財産は遅れて到来します。良い人に巡り合った時が転機。\n{解釈} 秘めた才能がありながら不遇でしたが、晩年に良き支援者に恵まれ開花します。"
+            ],
+            [
+                96, "第九十六籤", "第九十六籤", "上吉",
+                "婚姻子媳莫嫌遲，但把精神仗佛持；\n四十年前須報應，功圓行滿有馨兒。",
+                "【聖意】凡事起頭難或稍晚，積德行善，目標最終必能如願以償，得貴子。\n{解曰} 婚姻遲得，神明保佑，功圓行滿，喜得貴子。",
+                "【神意】何事も最初は難しいものです。しかし善徳を積めば願いは必ず叶います。\n{解釈} 縁談や子宝などは遅くとも、誠心誠意の祈りと善行によって素晴らしい実を結びます。"
+            ],
+            [
+                97, "第九十七籤", "第九十七籤", "上上",
+                "五十功名心已灰，那知富貴逼人來；\n更行好事存方寸，壽比岡陵位鼎台。",
+                "【聖意】功名晚成，中年後富貴不請自來，心存善念是保有富貴的最佳方式。\n{解曰} 功名心灰，富貴逼來，心存善念，位極人臣。",
+                "【神意】功名は遅れてやって来ます。中年以降自然に富貴が到来します。大吉。\n{解釈} すべてを諦めかけた頃に想像を絶する大幸運が舞い込みます。徳を積みなさい。"
+            ],
+            [
+                98, "第九十八籤", "第九十八籤", "中吉",
+                "經營百出費精神，南北奔馳運未新；\n玉兔交時當得意，恰如枯木再逢春。",
+                "【聖意】時運未到需經辛勤努力與失望，直到玉兔交時逐漸順遂漸入佳境。\n{解曰} 奔馳費神，運未全新，玉兔交時，枯木逢春。",
+                "【神意】時機がまだ来ていません。一通りの苦労を経て兎の年に（または卯の時に）好転します。\n{解釈} 度重なる苦労に耐え抜いた末に、枯れ木に花が咲くような素晴らしい活気が戻ります。"
+            ],
+            [
+                99, "第九十九籤", "第九十九籤", "上上",
+                "貴人遭遇水雲鄉，冷淡交情滋味長；\n黃閣開時延故客，驊騮應得驟康莊。",
+                "【聖意】運勢先前平平而後順暢，能遇到貴人獲得提拔幫助，驊騮康莊大道。\n{解曰} 貴人水雲，交情深長，黃閣重開，康莊大吉。",
+                "【神意】運気は最初は並みですが後に順調になります。良き人に巡り合い万事大吉。\n{解釈} 淡々とした交際から深い信頼が生まれ、やがて大いなる栄達の道を駆け上がります。"
+            ],
+            [
+                100, "第一百籤", "第一百籤", "上上",
+                "我本天仙雷雨師，吉凶禍福我先知；\n至誠禱祝皆靈應，抽得終籤百事宜。",
+                "【聖意】只要誠心祈求，凡事順遂百事皆宜，雷雨師神靈顯赫，有求必應。\n{解曰} 天仙雷雨，吉凶先知，至誠禱祝，百事皆宜。",
+                "【神意】誠心誠意で神に祈願すれば万事順調に運びます。積極的に物事に取り組みなさい。\n{解釈} 最終第100籤の至高の霊籤。導師の加護のもと、あらゆる願い事がことごとく叶います。"
+            ]
+        ];
+
+        let currentLot = null;
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = uiText[lang];
+
+            document.getElementById('btn-zh').className = `px-3 py-1 text-xs rounded-full font-bold transition-all duration-300 ${lang === 'zh' ? 'bg-gold text-slate-950 shadow-md' : 'text-slate-300 hover:text-gold'}`;
+            document.getElementById('btn-jp').className = `px-3 py-1 text-xs rounded-full font-bold transition-all duration-300 ${lang === 'jp' ? 'bg-gold text-slate-950 shadow-md' : 'text-slate-300 hover:text-gold'}`;
+
+            document.getElementById('ui-app-tag').innerText = t.appTag;
+            document.getElementById('ui-title').innerText = t.title;
+            document.getElementById('ui-sub').innerText = t.sub;
+            document.getElementById('ui-tab1').innerText = t.tab1;
+            document.getElementById('ui-tab2').innerText = t.tab2;
+            document.getElementById('ui-tab3').innerText = t.tab3;
+            document.getElementById('ui-desc').innerText = t.desc;
+            document.getElementById('ui-btn-draw').innerText = t.btnDraw;
+            document.getElementById('ui-poe-intro').innerText = t.poeIntro;
+            document.getElementById('ui-btn-toss').innerText = t.btnToss;
+            document.getElementById('ui-btn-redraw').innerText = t.btnRedraw;
+            document.getElementById('ui-zh-title').innerText = t.zhTitle;
+            document.getElementById('ui-jp-title').innerText = t.jpTitle;
+            document.getElementById('m-header').innerText = t.mHeader;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+
+            if (currentLot) {
+                document.getElementById('lot-name').innerText = currentLang === 'zh' ? currentLot[1] : currentLot[2];
+                document.getElementById('lot-level-badge').innerText = currentLot[3];
+            }
+            renderLotList();
+        }
+
+        function switchTab(tabKey) {
+            ['draw', 'list', 'mentor'].forEach(k => {
+                const pageEl = document.getElementById(`page-${k}`);
+                const tabBtn = document.getElementById(`tab-${k}`);
+                if (k === tabKey) {
+                    pageEl.classList.remove('hidden');
+                    tabBtn.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all duration-300 text-slate-950 bg-gold shadow-md flex items-center justify-center space-x-1";
+                } else {
+                    pageEl.classList.add('hidden');
+                    tabBtn.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all duration-300 text-slate-400 hover:text-gold flex items-center justify-center space-x-1";
+                }
+            });
+
+            if (tabKey === 'list') {
+                renderLotList();
+            }
+        }
+
+        function startDraw() {
+            const randomIndex = Math.floor(Math.random() * lotsData.length);
+            currentLot = lotsData[randomIndex];
+
+            document.getElementById('draw-step-1').classList.add('hidden');
+            document.getElementById('draw-result-container').classList.remove('hidden');
+
+            document.getElementById('lot-name').innerText = currentLang === 'zh' ? currentLot[1] : currentLot[2];
+            document.getElementById('lot-level-badge').innerText = currentLot[3];
+            document.getElementById('lot-poem').innerText = currentLot[4];
+            document.getElementById('lot-zh-text').innerText = currentLot[5];
+            document.getElementById('lot-jp-text').innerText = currentLot[6];
+
+            document.getElementById('poe-status').innerText = "";
+            document.getElementById('poe-status').className = "text-sm font-bold min-h-[24px]";
+            document.getElementById('interpretation-box').classList.add('hidden');
+            document.getElementById('btn-toss').classList.remove('hidden');
+            document.getElementById('btn-redraw').classList.add('hidden');
+
+            document.getElementById('poe1').className = "poe-block";
+            document.getElementById('poe2').className = "poe-block flat";
+        }
+
+        function resetDraw() {
+            document.getElementById('draw-step-1').classList.remove('hidden');
+            document.getElementById('draw-result-container').classList.add('hidden');
+            document.getElementById('user-intention').value = "";
+        }
+
+        function tossPoe() {
+            const btnToss = document.getElementById('btn-toss');
+            const statusEl = document.getElementById('poe-status');
+            const poe1 = document.getElementById('poe1');
+            const poe2 = document.getElementById('poe2');
+
+            btnToss.disabled = true;
+            statusEl.innerText = uiText[currentLang].tossingMsg;
+            statusEl.className = "text-sm font-bold text-gold animate-pulse min-h-[24px]";
+
+            poe1.classList.add('tossing');
+            poe2.classList.add('tossing');
+
+            setTimeout(() => {
+                poe1.classList.remove('tossing');
+                poe2.classList.remove('tossing');
+                btnToss.disabled = false;
+
+                const isSuccess = Math.random() < 0.6; // 60% 聖筊機率
+
+                if (isSuccess) {
+                    poe1.className = "poe-block";
+                    poe2.className = "poe-block flat";
+
+                    statusEl.innerText = uiText[currentLang].poeSuccess;
+                    statusEl.className = "text-sm font-bold text-emerald-400 min-h-[24px]";
+
+                    document.getElementById('interpretation-box').classList.remove('hidden');
+                    btnToss.classList.add('hidden');
+                    document.getElementById('btn-redraw').classList.remove('hidden');
+                } else {
+                    const bothFlat = Math.random() < 0.5;
+                    poe1.className = bothFlat ? "poe-block flat" : "poe-block";
+                    poe2.className = bothFlat ? "poe-block flat" : "poe-block";
+
+                    statusEl.innerText = uiText[currentLang].poeFail;
+                    statusEl.className = "text-sm font-bold text-rose-400 min-h-[24px]";
+
+                    btnToss.classList.add('hidden');
+                    document.getElementById('btn-redraw').classList.remove('hidden');
+                }
+            }, 900);
+        }
+
+        function renderLotList(filterText = '') {
+            const listContainer = document.getElementById('lotList');
+            const kw = filterText.trim().toLowerCase();
+
+            const filtered = lotsData.filter(lot => {
+                const idStr = lot[0].toString();
+                const nameZh = lot[1].toLowerCase();
+                const nameJp = lot[2].toLowerCase();
+                const level = lot[3].toLowerCase();
+                const poem = lot[4].toLowerCase();
+                return idStr === kw || nameZh.includes(kw) || nameJp.includes(kw) || level.includes(kw) || poem.includes(kw);
+            });
+
+            if (filtered.length === 0) {
+                listContainer.innerHTML = `<div class="text-center py-8 text-slate-500 text-xs">未找到相符籤詩</div>`;
+                return;
+            }
+
+            listContainer.innerHTML = filtered.map(lot => `
+                <div onclick="openModal(${lot[0]})" 
+                     class="bg-slate-900/80 hover:bg-slate-800/90 border border-gold/20 rounded-xl p-3.5 flex justify-between items-center cursor-pointer transition transform active:scale-[0.99] group">
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-gold/10 text-gold border border-gold/30">${lot[3]}</span>
+                            <span class="font-bold text-sm text-gold group-hover:text-gold-light transition font-serif">
+                                ${currentLang === 'zh' ? lot[1] : lot[2]}
+                            </span>
+                        </div>
+                        <div class="text-xs text-slate-400 line-clamp-1 font-serif">
+                            ${lot[4].replace('\n', ' ')}
+                        </div>
+                    </div>
+                    <span class="text-xs text-gold/60 group-hover:text-gold flex items-center space-x-1 shrink-0 ml-2">
+                        <span>${uiText[currentLang].viewDetail}</span>
+                        <span>›</span>
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function filterLots() {
+            const val = document.getElementById('searchInput').value;
+            renderLotList(val);
+        }
+
+        function openModal(id) {
+            const lot = lotsData.find(l => l[0] === id);
+            if (!lot) return;
+
+            document.getElementById('modal-level-badge').innerText = lot[3];
+            document.getElementById('modal-title').innerText = currentLang === 'zh' ? lot[1] : lot[2];
+            document.getElementById('modal-poem').innerText = lot[4];
+            document.getElementById('modal-zh').innerText = lot[5];
+            document.getElementById('modal-jp').innerText = lot[6];
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        window.onload = function() {
+            setLanguage('zh');
+        };
+    </script>
+</body>
+</html>
